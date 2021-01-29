@@ -7,13 +7,13 @@ def home_view(request):
   money = Money.objects.all()
   form = ParseForm()
   if request.method == 'POST':
-    print('printing post', request.POST)
     form = ParseForm(request.POST)
     if form.is_valid():
       new_money = form.save(commit=False)
-      new_money.parsed = parse(str(new_money.value), str(new_money.nds))
-
+      nds = new_money.nds if (new_money.nds and new_money.hasNds) else 0
+      new_money.parsed = parse(new_money.value, nds)
       new_money.save()
+      form = ParseForm()
   return render(request, "index.html", {'money': money, 'form': form})
 
 
@@ -45,7 +45,7 @@ NUMBERS = (
 )
 
 
-def parse(raw_value: str, raw_nds: str) -> str:
+def parse(value: str, nds: str) -> str:
   """
   Переводит число, записаное в цифровой форме, в рукописную
 
@@ -53,19 +53,13 @@ def parse(raw_value: str, raw_nds: str) -> str:
     --число больше 10**12
     --неверная запись числа (допускается использовать '.' или ',' для дробных чисел)
   """
-  nds = 0
-  try:
-    value = str_to_value(raw_value)
-    if raw_nds:
-      nds = str_to_value(raw_nds)
-  except:
-    raise ValueError("Ошибка в записи числа")
-  
+  if value < 0:
+    value = -value
   full_price = value
 
   if nds:
-    nds_value = round((value * nds / 100 ) * 100) / 100
-    full_price += nds_value
+    nds_value = round((value * nds / 100 ), 2)
+    full_price = round(full_price + nds_value, 2)
 
     nds_in_words = f", включая НДС ({nds}%) в сумме {nds_value} руб. {say_big_number(nds_value)}"
 
@@ -75,7 +69,7 @@ def parse(raw_value: str, raw_nds: str) -> str:
 
 def say_big_number(value: int):
   if value >= 10**12:
-    raise ValueError("Я еще не умею считать тириллионы")
+    raise ValueError("Я не умею считать тириллионы")
   rubles = int(value)
 
   billions = rubles // 10**9

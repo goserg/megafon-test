@@ -13,22 +13,31 @@
   </head>
   <body>
     <div class="container container-center">
-      <h1>Калькулятор стоимости</h1>
+      <h1 class="container__title">Калькулятор стоимости</h1>
       <form class="form" action="" method="POST">
         {% csrf_token %}
         <!--{{form}}-->
         {{ form.non_field_errors }}
-        <div class="fieldWrapper">
-            {{ form.value.errors }}
-            {{ form.value }}
+        <div class="input-form__error">
+          {{ form.value.errors }}
         </div>
-        <div class="fieldWrapper">
-            {{ form.hasNds.errors }}
-            {{ form.hasNds }}
+        <div class="input-form">
+          {{ form.value }}
+          <p class="input-form__placeholder">Цена, руб.</p>
         </div>
-        <div class="fieldWrapper">
-            {{ form.nds.errors }}
-            {{ form.nds }}
+        <div class="input-form__error">
+          {{ form.hasNds.errors }}
+        </div>
+        <div class="input-form">
+          {{ form.hasNds }}
+          <label class="input-form__label" for="check_1">НДС</label>
+        </div>
+        <div class="input-form">
+          {{ form.nds }}
+          <p class="input-form__placeholder">Величина НДС, %</p>
+        </div>
+        <div class="input-form__error">
+          {{ form.nds.errors }}
         </div>
         <input class="input-form__button" type="submit" name="Посчитать">
       </form>
