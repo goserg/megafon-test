@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Тестовое задание Megafon</title>
+    <link rel="stylesheet" href="{% static 'styles.css'%}">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+  </head>
+  <body>
+    <div class="container container-center">
+      <h1>Калькулятор стоимости</h1>
+      <form class="form" action="" method="POST">
+        {% csrf_token %}
+        <!--{{form}}-->
+        {{ form.non_field_errors }}
+        <div class="fieldWrapper">
+            {{ form.value.errors }}
+            {{ form.value }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.hasNds.errors }}
+            {{ form.hasNds }}
+        </div>
+        <div class="fieldWrapper">
+            {{ form.nds.errors }}
+            {{ form.nds }}
+        </div>
+        <input class="input-form__button" type="submit" name="Посчитать">
+      </form>
+      <ul class="history">
+        {% for item in money %}
+          <li class="history__item">{{item.parsed}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
