@@ -11,7 +11,6 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
 }
 .container-center {
   margin: 0 auto;
@@ -25,14 +24,13 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  place-items: center;
 }
 
 .input-form {
   position: relative;
   display: flex;
-  gap: 1rem;
+  margin: 1rem auto 0 auto;
+  width: 30ch;
 }
 
 .input-form__error li{
@@ -67,10 +65,19 @@
   -webkit-user-select: none;
 }
 .input-form__input:active + .input-form__placeholder,
-.input-form__input:focus + .input-form__placeholder,
+.input-form__input:focus + .input-form__placeholder {
+  transform: translateY(-1.1rem) scale(0.9);
+}
+
+/* IE11 support */
+.input-form__input:not(:-ms-input-placeholder) + .input-form__placeholder {
+  transform: translateY(-1.1rem) scale(0.9);
+}
+/* for other browsers */
 .input-form__input:not(:placeholder-shown) + .input-form__placeholder {
   transform: translateY(-1.1rem) scale(0.9);
 }
+
 .input-form__input:active + .input-form__placeholder,
 .input-form__input:focus + .input-form__placeholder {
   color: #00b956;
@@ -86,6 +93,7 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   outline: none;
   cursor: pointer;
+  margin-right: 0.5rem;
 }
 .checkbox:checked {
   background-color: #bfe9c5;
@@ -130,11 +138,12 @@
   color: white;
   border: none;
   outline: none;
-  padding: 0.5rem 3rem;
-  max-width: max-content;
+  padding: 0.5rem 0;
+  width: 15ch;
   font-size: 1.2rem;
   border-radius: 2rem;
   cursor: pointer;
+  margin: 2rem auto 2rem auto;
 }
 .input-form__button:hover {
   box-shadow: inset 0 0 0 1px #00ee6f;
