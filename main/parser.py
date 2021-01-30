@@ -44,9 +44,11 @@ def parse(value: float, nds: float = 0) -> str:
     nds_value = round((value * nds / 100 ), 2)
     full_price = round(full_price + nds_value, 2)
 
-    nds_in_words = f", включая НДС ({nds}%) в сумме {nds_value} руб. {say_big_number(nds_value)}"
+    nds_in_words = f", включая НДС ({nds}%) в сумме {'{:,}'.format(nds_value).replace(',', ' ').replace('.', ',')} \
+      руб. {say_big_number(nds_value)}"
 
-  processed_value = f"{full_price} {say_big_number(full_price)}{nds_in_words if nds else ''}."
+  processed_value = f"{'{:,}'.format(full_price).replace(',', ' ').replace('.', ',')} \
+  {say_big_number(full_price)}{nds_in_words if nds else ''}."
 
   return processed_value
 
@@ -78,7 +80,7 @@ def say_big_number(value: float):
     value_in_words.append(f'({" ".join(rubles_in_words)}) {modifyScale("рубль", units)}')
 
   if kopeyka > 0:
-    value_in_words.append(str(kopeyka))
+    value_in_words.append('{:0>2}'.format(kopeyka))
     value_in_words.append(modifyScale("копейка", kopeyka))
   return " ".join(value_in_words)
 

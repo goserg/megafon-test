@@ -34,16 +34,18 @@
         </div>
         <div class="input-form">
           {{ form.nds }}
-          <p class="input-form__placeholder">Величина НДС, %</p>
+          <p class="input-form__placeholder">процент НДС</p>
         </div>
         <div class="input-form__error">
           {{ form.nds.errors }}
         </div>
-        <input class="input-form__button" type="submit" name="Посчитать">
+        <input class="input-form__button" type="submit" value="Посчитать">
       </form>
       <ul class="history">
         {% for item in money %}
-          <li class="history__item">{{item.parsed}}</li>
+          <li class="history__item">
+            {{item.parsed}}
+          </li>
         {% endfor %}
       </ul>
     </div>
