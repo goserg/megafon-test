@@ -78,49 +78,43 @@
 
 .checkbox {
   position: relative;
-  background: white;
-  width: 60px;
+  background: gray;
+  width: 40px;
   height: 20px;
   -webkit-appearance: initial;
-  border-radius: 1.5px;
+  border-radius: 20px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   outline: none;
-  font-size: 0.5rem;
-  font-family: Trebuchet, Arial, sans-serif;
-  font-weight: bold;
   cursor: pointer;
-  border: 1px solid #ddd;
 }
-.checkbox:hover {
-  border: 1px solid #00ee6f;
+.checkbox:checked {
+  background-color: #bfe9c5;
 }
 
 .checkbox:after {
   position: absolute;
-  top: 5%;
+  top: 0;
   display: block;
   line-height: 16px;
-  width: 45%;
-  height: 90%;
-  background: #fff;
-  box-sizing: border-box;
-  text-align: center;
-  transition: all 0.3s ease-in 0s;
-  color: black;
-  border: #888 1px solid;
-  border-radius: 1.5px;
+  width: 50%;
+  height: 100%;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  transition: all 0.1s ease-in 0s;
+  border-radius: 50%;
 }
 
 .checkbox:after {
-  left: 2%;
-  content: "Выкл";
+  left: 0;
+  content: " ";
 }
 
+.checkbox:hover:after {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 0 10px rgba(0, 185, 86, 0.2);
+}
 .checkbox:checked:after {
-  left: 53%;
-  content: "Вкл";
-  border: #00b956 1px solid;
-  color: #00b956;
+  left: 50%;
+  background-color: #00b956;
 }
 
 .checkbox + .input-form__label {
@@ -159,4 +153,10 @@
 }
 .history__item:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 100vw;
+  }
 }

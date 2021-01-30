@@ -1,38 +1,26 @@
 from typing import Union
 
+
 HUNDREDS = ("сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот",)
 TENTHS = ("двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семдесят", "восемдесят", "девяносто",)
 NUMBERS = (
-  "один",
-  "два",
-  "три",
-  "четыре",
-  "пять",
-  "шесть",
-  "семь",
-  "весемь",
-  "девять",
-  "десять",
-  "одинадцать",
-  "двенадцать",
-  "тринадцать",
-  "четырнадцать",
-  "пятнадцать",
-  "шестнадцать",
-  "семнадцать",
-  "восемнадцать",
-  "девятнадцать",
-  "двадцать"
+  "один",         "два",          "три",
+  "четыре",       "пять",         "шесть",
+  "семь",         "весемь",       "девять",
+  "десять",       "одинадцать",   "двенадцать",
+  "тринадцать",   "четырнадцать", "пятнадцать",
+  "шестнадцать",  "семнадцать",   "восемнадцать",
+  "девятнадцать", "двадцать"
 )
 
 
 def parse(value: float, nds: float = 0) -> str:
   """
   Переводит число, записаное в цифровой форме, в рукописную
+  Форматирует строку.
 
   Вызывает исключение ValueError:
     --число больше 10**12
-    --неверная запись числа (допускается использовать '.' или ',' для дробных чисел)
   """
   if value < 0:
     value = -value
@@ -44,15 +32,21 @@ def parse(value: float, nds: float = 0) -> str:
     nds_value = round((value * nds / 100 ), 2)
     full_price = round(full_price + nds_value, 2)
 
-    nds_in_words = f", включая НДС ({nds}%) в сумме {'{:,}'.format(nds_value).replace(',', ' ').replace('.', ',')} \
-      руб. {say_big_number(nds_value)}"
+    nds_in_words = f", включая НДС ({nds}%) в сумме {'{:,}'.format(nds_value).replace(',', ' ').replace('.', ',')}\
+ {say_big_number(nds_value)}"
 
-  processed_value = f"{'{:,}'.format(full_price).replace(',', ' ').replace('.', ',')} \
-  {say_big_number(full_price)}{nds_in_words if nds else ''}."
+  processed_value = f"{'{:,}'.format(full_price).replace(',', ' ').replace('.', ',')}\
+ {say_big_number(full_price)}{nds_in_words if nds else ''}."
 
   return processed_value
 
-def say_big_number(value: float):
+def say_big_number(value: float) -> str:
+  """
+  Переводит число, записаное в цифровой форме, в рукописную
+
+  Вызывает исключение ValueError:
+    --число больше 10**12
+  """
   if value >= 10**12:
     raise ValueError("Я не умею считать тириллионы")
   rubles = int(value)
@@ -149,6 +143,10 @@ def modifyScale(scale: str, n: int) -> str:
   return SCALES[scale][2]
 
 
+
 if __name__ == "__main__":
   print("testing")
-  print(parse(100))
+  assert parse(100) == '100 (сто) рублей.'
+  assert parse(100, 18) == '118,0 (сто восемнадцать) рублей, включая НДС (18%) в сумме 18,0 (восемнадцать) рублей.'
+  assert parse(15298.02, 18) == '18 051,66 (восемнадцать тысяч пятьдесят один) рубль 66 копеек, включая НДС (18%) в сумме 2 753,64 (две тысячи семьсот пятьдесят три) рубля 64 копейки.'
+  print("testing successfull")
