@@ -2,6 +2,9 @@ from django.db import models
 
 # Create your models here.
 class Money(models.Model):
+  """
+  Запись о результате запроса.
+  """
   value = models.DecimalField(max_digits=12, decimal_places=2)
   hasNds = models.BooleanField(default=False)
   nds = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2)
