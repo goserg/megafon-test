@@ -9,7 +9,7 @@ git clone https://github.com/goserg/megafon-test.git
 cd megafon-test
 
 3. Убедиться, что установлен Python 3 и Django.
-Для функционального тестировния необходим Selenium.
+Для функционального тестирования необходим Selenium.
 Установить необходимые зависимости при помощи команд:
 
 pip install pipenv
