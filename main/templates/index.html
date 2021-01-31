@@ -16,7 +16,6 @@
       <h1 class="container__title">Калькулятор НДС</h1>
       <form class="form" action="" method="POST">
         {% csrf_token %}
-        <!--{{form}}-->
         {{ form.non_field_errors }}
         <div class="input-form__error">
           {{ form.value.errors }}
