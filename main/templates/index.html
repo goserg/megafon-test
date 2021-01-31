@@ -42,6 +42,9 @@
         <input class="input-form__button" type="submit" value="Посчитать">
       </form>
       <ul class="history">
+        {% if not money %}
+          В истории пока нет записей.
+        {% endif %}
         {% for item in money %}
           <li class="history__item">
             {{item.parsed}}

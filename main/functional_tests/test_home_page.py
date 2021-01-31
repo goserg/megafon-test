@@ -14,6 +14,11 @@ class TestHomePage(StaticLiveServerTestCase):
   def test_empty_history(self):
     self.browser.get(self.live_server_url)
 
+    self.assertEquals(
+      self.browser.find_element_by_class_name('history').text,
+      "В истории пока нет записей."
+    )
+
 
   def test_history_is_displyed(self):
     money1 = Money.objects.create(
