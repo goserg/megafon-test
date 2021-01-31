@@ -1,6 +1,3 @@
-from typing import Union
-
-
 HUNDREDS = ("сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот",)
 TENTHS = ("двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто",)
 NUMBERS = (
@@ -49,12 +46,14 @@ def say_big_number(value: float) -> str:
   """
   if value >= 10**12:
     raise ValueError("Я не умею считать тириллионы")
+  
   rubles = int(value)
-
+  #Разбиваем рубли по тройкам
   billions = rubles // 10**9
   millions = rubles // 10**6 - (billions * 1000)
   thousands = rubles // 1000 - (millions * 1000 + billions * 10**6)
   units = rubles % 1000
+
   kopeyka = round(value % 1 * 100)
 
   value_in_words = []
@@ -86,14 +85,17 @@ def say(n: int, isFem: bool = False) -> str:
   isFem == True для тысяч рублей и коппеек,
   isFem == False должен быть во всех остальных случаях.
   """
+  #Разбиваем число на порядки
   hundreds = n // 100
   last_two = n - hundreds * 100 # две последние цифры числа
   tenth = last_two // 10
   unit = last_two % 10 # единицы
 
   result = []
+  #Сотни
   if hundreds != 0:
     result.append(HUNDREDS[hundreds - 1])
+  #От 1 до 20
   if (last_two <= 20 and last_two > 0):
     if isFem:
       if last_two == 1:
@@ -105,10 +107,10 @@ def say(n: int, isFem: bool = False) -> str:
     else:
       result.append(NUMBERS[last_two - 1])
     return " ".join(result)
-
+  #Десятки
   if tenth != 0:
     result.append(TENTHS[tenth - 2])
-
+  #Слова для 1 и 2 в зависимости от рода (тысяча женского рода)
   if isFem:
     if unit == 1:
       result.append("одна")
@@ -116,7 +118,7 @@ def say(n: int, isFem: bool = False) -> str:
     if unit == 2:
       result.append("две")
       return " ".join(result)
-
+  #Единицы
   if unit != 0:
     result.append(NUMBERS[unit - 1])
 
