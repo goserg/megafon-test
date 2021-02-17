@@ -1,6 +1,6 @@
-﻿Инструкция по запуску:
+﻿![v1 screenshot](screenshots/v1.png?raw=true "v1 screenshot")   
 
-![v1 screenshot](screenshots/v1.png?raw=true "v1 screenshot")   
+Инструкция по запуску:
 
 1. Клонировать репозиторий
 
