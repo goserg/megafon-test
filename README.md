@@ -1,5 +1,7 @@
 ﻿Инструкция по запуску:
 
+![v1 screenshot](screenshots/v1.png?raw=true "v1 screenshot")   
+
 1. Клонировать репозиторий
 
 git clone https://github.com/goserg/megafon-test.git
