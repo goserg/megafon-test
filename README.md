@@ -1,4 +1,4 @@
-﻿![v1 screenshot](screenshots/v1.png?raw=true "v1 screenshot")   
+﻿![gif](https://raw.githubusercontent.com/goserg/megafon-test/main/screenshots/moneyToWords.gif)   
 
 О проекте:
 
